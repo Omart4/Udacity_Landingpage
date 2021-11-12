@@ -75,6 +75,7 @@ function createSection(){
 }
 
 //This function checks if a section is in view port and its exectution happens in the event listener at the bottom
+//I got this from github because it took me so long to figure it out on my own
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
