@@ -2,8 +2,6 @@
 const navbar = document.getElementById('navbar__list');
 const sections = document.getElementsByTagName('section');
 var body = document.body;
-let main = document.getElementById('mainer');
-let count = 4;
 //End of global variables
 
 //Start of functions
@@ -36,6 +34,8 @@ function navShow(){
     }
 }
 //This function is an experiment of mine where i create a new section and this section is named accordingly to it's order
+let main = document.getElementById('mainer');
+let count = 4;
 function createSection(){
     //Variables
     let newSection = document.createElement('section');
@@ -69,13 +69,11 @@ function createSection(){
     anchor.href = `#section${count}`
     list.appendChild(anchor)
     navbar.appendChild(list)
-    element.push(`#section${count}`)
 
     count++
 }
 
 //This function checks if a section is in view port and its exectution happens in the event listener at the bottom
-//I got this from github because it took me so long to figure it out on my own
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
