@@ -74,26 +74,34 @@ function createSection(){
 }
 
 //This function checks if a section is in view port and its exectution happens in the event listener at the bottom
-function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
+var isInViewport = function(elem) {
+    var distance = elem.getBoundingClientRect();
     return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+       distance.top >= 0 &&
+       distance.left >= 0 &&
+       distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+       distance.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-}
+};
+
+
 //End of Functions
 
 //Start of Event Listeners
-window.onscroll = function(){
-    //In this listener it checks the conditions of navshow function and executes the isInViewPort function
+window.addEventListener('scroll', function(event) {
     navShow()
-    const seccions = document.getElementsByTagName('section');
-    for(let j=0;j<=seccions.length;j++){
-        isInViewport(seccions[j])?seccions[j].classList.add('your-active-class'):seccions[j].classList.remove('your-active-class')
-    }
-}
+   // add event on scroll
+   var findMe = document.querySelectorAll('.sakashen');
+   findMe.forEach(element => {
+      //for each .sakashen
+      if (isInViewport(element)) {
+         //if in Viewport
+         element.classList.add("your-active-class");
+      }else{
+          element.classList.remove('your-active-class')
+      }
+   });
+});
 //Onclick this creates a new Section
 document.getElementById('submit').addEventListener('click',createSection)
 //End of Event Listeners
