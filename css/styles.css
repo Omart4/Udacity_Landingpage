@@ -110,7 +110,7 @@ section {
     justify-content: center;
     flex-wrap: wrap;
 }
-#navbar__list li a{
+a{
     text-decoration: none;
     color: rgb(119, 119, 119);
     padding: 30px;
@@ -233,7 +233,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.your-active-class {
     background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.404) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 section.your-active-class .landing__container::before {
@@ -280,4 +280,25 @@ section.your-active-class .landing__container::after {
 }
 #submit:hover{
     background: linear-gradient(to right, rgba(136, 203, 171, 0.727) 0%, rgba(4, 33, 138, 0.727) 100%);   
+}
+#toTop{
+    cursor: pointer;
+    display: none;
+    height: 80px;
+    width: 80px;
+    z-index: 9;
+    background-color: rgb(0, 177, 177);
+    color: white;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+#act{
+    background-color: rgb(0, 177, 177);
+    color: white;
+    border-radius: 5px;
 }
