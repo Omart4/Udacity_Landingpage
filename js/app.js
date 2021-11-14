@@ -14,6 +14,7 @@ function navCreate(){
         const newAnchor = document.createElement('a')
         newAnchor.textContent = `Section ${i}`
         newAnchor.href = `#section${i}`
+        newAnchor.setAttribute('data-link',`section${i}`)
         newElm.appendChild(newAnchor);
         navbar.appendChild(newElm);
     }
@@ -71,6 +72,7 @@ function createSection(){
     //In this part i create a new list item named according to its order and adding it to the navbar
     anchor.textContent = `Section ${count}`
     anchor.href = `#section${count}`
+    anchor.setAttribute('data-link' , `section${count}`)
     list.appendChild(anchor)
     navbar.appendChild(list)
 
@@ -80,15 +82,17 @@ function createSection(){
 }
 
 //This function checks if a section is in view port and its exectution happens in the event listener at the bottom
-let isInViewport = function(elem) {
-    let distance = elem.getBoundingClientRect();
+
+function isElementInViewport (el) {
+    let rect = el.getBoundingClientRect();
+
     return (
-       distance.top >= 0 &&
-       distance.left >= 0 &&
-       distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-       distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && 
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-};
+}
 
 //This function Will enable smooth scrolling to desired section but this will only execute after pressing the button to create a new section
 function scrolling(){
@@ -108,29 +112,43 @@ function scrolling(){
 //Start of Event Listeners
 window.addEventListener('scroll', function(event) {
     navShow()
-   // add event on scroll
-   let findMe = document.querySelectorAll('.sakashen');
-   findMe.forEach(element => {
-      //for each .sakashen
-      if (isInViewport(element)) {
-        //This line of code gets the id of the section in view while adding '#' in front of it
-        let link = `#${element.getAttribute('id')}`
-        //Using the links variable we loop through each element and get its href value 
-        links.forEach((e)=>{
-            /*If the href value equals the value of link, the navbar a item will have an id of active or act in short
-            I chose to add an id because it's more specific. This bit of code should work exactly as the active section part*/ 
-            if(link===e.getAttribute('href')){
-                e.setAttribute('id','act')
-            }else{
-                e.removeAttribute('id','act')
+    /*Since i couldn't use the .getBoundingClientRect() approach and while using my last remaining brain cells i figured i could use the intersection approach*/
+    const callback = entries => {
+        entries.forEach(entry => {
+          const navListElement = document.querySelector(
+            `a[data-link='${entry.target.id}']`,
+          )
+          const section = document.getElementById(entry.target.id)
+      
+          if (entry && entry.isIntersecting) {
+            navListElement.classList.add('act')
+            section.classList.add('your-active-class')
+          } else {
+            if (navListElement.classList.contains('act')) {
+              navListElement.classList.remove('act')
             }
-        }) 
-        //if in Viewport
-        element.classList.add("your-active-class");
-      }else{
-        element.classList.remove('your-active-class')
+      
+            if (section.classList.contains('your-active-class')) {
+              section.classList.remove('your-active-class')
+            }
+          }
+        })
       }
-   });
+      
+      // Options for the observer.
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.6,
+      }
+      const seks = document.querySelectorAll('section');
+    
+      // Setting an observer with options and a callback which checks if the navelement should be active
+      const observer = new IntersectionObserver(callback, options)
+      seks.forEach(el => {
+        observer.observe(document.getElementById(el.id))
+      })
+   // add event on scroll
 });
 //Onclick this creates a new Section
 document.getElementById('submit').addEventListener('click',function(){
