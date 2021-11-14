@@ -297,7 +297,7 @@ section.your-active-class .landing__container::after {
     border: none;
     border-radius: 5px;
 }
-#act{
+.act{
     background-color: rgb(0, 177, 177);
     color: white;
     border-radius: 5px;
