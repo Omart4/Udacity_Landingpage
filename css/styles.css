@@ -115,10 +115,6 @@ a{
     color: rgb(119, 119, 119);
     padding: 30px;
 }
-#navbar__list li:hover{
-    color: #fff;
-    background-color: #000;
-}
 
 
 /* Header Styles */
